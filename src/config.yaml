@@ -1,6 +1,6 @@
 site:
-  name: AstroWind
-  site: 'https://astrowind.vercel.app'
+  name: Unmasking the Reality of Lung Cancer
+  site: 'https://unmaskingtherealityoflungcancer.com'
   base: '/'
   trailingSlash: false
 
@@ -9,14 +9,14 @@ site:
 # Default SEO metadata
 metadata:
   title:
-    default: AstroWind
-    template: '%s — AstroWind'
-  description: "\U0001F680 Suitable for Startups, Small Business, Sass Websites, Professional Portfolios, Marketing Websites, Landing Pages & Blogs."
+    default: Unmasking the Reality of Lung Cancer
+    template: '%s — Unmasking the Reality of Lung Cancer'
+  description: "Unmasking the reality of lung cancer and empowering patients, caregivers, and advocates through education, support, and action."
   robots:
     index: true
     follow: true
   openGraph:
-    site_name: AstroWind
+    site_name: Unmasking the Reality of Lung Cancer
     images:
       - url: '~/assets/images/default.png'
         width: 1200

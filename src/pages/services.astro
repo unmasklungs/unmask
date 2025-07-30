@@ -1,9 +1,6 @@
 ---
-import CallToAction from '~/components/widgets/CallToAction.astro';
 import Content from '~/components/widgets/Content.astro';
-import Features2 from '~/components/widgets/Features2.astro';
 import Hero from '~/components/widgets/Hero.astro';
-import Testimonials from '~/components/widgets/Testimonials.astro';
 import Layout from '~/layouts/PageLayout.astro';
 
 const metadata = {
@@ -16,73 +13,39 @@ const metadata = {
 
   <Hero
     tagline="Services"
-    title="Elevate your projects with our stunning templates"
-    subtitle="Explore our meticulously crafted templates tailored to various industries and purposes. From captivating presentations to functional website designs, we offer the tools you need to succeed."
-    actions={[{ variant: 'primary', target: '_blank', text: 'Start exploring', href: '/' }]}
+    title="How We Help"
+    subtitle="Unmasking the reality of lung cancer and empowering patients, caregivers, and advocates through education, support, and action."
     image={{
       src: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80',
       alt: 'AstroWind Hero Image',
     }}
   />
 
-  <!-- Features2 Widget ************** -->
+  <!-- Content Widget **************** -->
 
-  <Features2
-    title="Explore our diverse templates"
-    subtitle="Discover our selection below to streamline and elevate your projects."
-    columns={3}
+  <Content
+    tagline="Patient & Caregiver Hub"
+    title="Plain-language Guides"
     items={[
       {
-        title: 'Educational',
-        description:
-          'By harmonizing instructional design and visual appeal, templates streamline content creation for varied materials, expediting development and cultivating engaging educational spaces.',
-        icon: 'tabler:school',
+        title: 'Diagnosis Explained',
+        description: 'Diagnosis explained, treatment options (by stage & mutation), side effect management, and survivorship.',
       },
       {
-        title: 'Interior Design',
-        description:
-          'Crafting functional, visually appealing spaces for residential and commercial use. Templates emphasize layout, colors, and furniture setups, offering a versatile toolkit for your design vision.',
-        icon: 'tabler:home-star',
+        title: 'Interactive Treatment Navigator',
+        description: 'Enter stage, biomarker results, and location → get customized treatment pathways (including clinical trials).',
       },
       {
-        title: 'Photography',
-        description: `Empowering photographers, our templates facilitate captivating storytelling. With a keen focus on layout, galleries, and typography, they cater to both professionals and enthusiasts.`,
-        icon: 'tabler:photo',
+        title: 'Ask a Nurse/Oncologist Chat',
+        description: 'Real-time Q&A or scheduled virtual office hours.',
       },
       {
-        title: 'E-commerce',
-        description:
-          'Developing engaging online stores, our E-commerce templates ensure a dynamic presence to effectively showcase products. Ideal for startups or revamps.',
-        icon: 'tabler:shopping-cart',
+        title: 'Mental Health & Wellness Section',
+        description: 'Meditation videos, coping strategies, caregiver burnout support.',
       },
       {
-        title: 'Blog',
-        description:
-          'With attention to typography, these templates empower effective content presentation for writers at any stage, ensuring visually engaging and user-friendly blogs.',
-        icon: 'tabler:article',
-      },
-      {
-        title: 'Business',
-        description:
-          'Providing polished options for effective visual communication, these templates empower both startups and established companies for a professional brand presence.',
-        icon: 'tabler:building-store',
-      },
-      {
-        title: 'Branding',
-        description:
-          'Offering pre-designed elements for a consistent brand identity, including logos and marketing materials. Ideal for new ventures or revamps.',
-        icon: 'tabler:arrow-big-up-lines',
-      },
-      {
-        title: 'Medical',
-        description: `From presentations to patient forms, these tools enhance communication effectiveness for healthcare professionals. Ideal for medical practices and research pursuits.`,
-        icon: 'tabler:vaccine',
-      },
-      {
-        title: 'Fashion Design',
-        description:
-          'With attention to detail, customization, and contemporary design, they empower designers to showcase ideas cohesively. Ideal for all levels of designers.',
-        icon: 'tabler:tie',
+        title: 'Nutrition & Exercise for Lung Cancer',
+        description: 'Downloadable meal plans and exercise adaptations by stage.',
       },
     ]}
   />
@@ -91,134 +54,120 @@ const metadata = {
 
   <Content
     isReversed
+    tagline="Advocacy & Policy Center"
+    title="Take Action"
     items={[
       {
-        title: 'High-Quality Designs',
-        description:
-          'Our templates feature top-tier designs that ensure a professional and polished appearance for your projects.',
-        icon: 'tabler:wand',
+        title: 'Action Alerts',
+        description: 'find email of MPs/representatives about lung cancer funding, clean air legislation, or drug approvals.',
       },
       {
-        title: 'Customization Tools',
-        description:
-          'Tailor each template to your unique needs with user-friendly customization tools that let you personalize colors, fonts, and content.',
-        icon: 'tabler:settings',
+        title: 'Legislation Tracker',
+        description: 'Updates on federal/provincial policy changes affecting lung cancer patients.',
       },
       {
-        title: 'Pre-Designed Elements',
-        description:
-          'Save time and effort with our ready-to-use elements, including graphics, icons, and layouts that enhance the visual appeal of your creations.',
-        icon: 'tabler:presentation',
-      },
-      {
-        title: 'Preview and Mockup Views',
-        description:
-          'Visualize the final outcome before making any changes using our preview and mockup views, ensuring your projects meet your expectations.',
-        icon: 'tabler:carousel-horizontal',
+        title: 'Success Stories',
+        description: 'Highlight advocacy wins to inspire others to join the fight.',
       },
     ]}
-    image={{
-      src: 'https://images.unsplash.com/photo-1525909002-1b05e0c869d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',
-      alt: 'Features Image',
-    }}
-  >
-    <Fragment slot="content">
-      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">Main Features</h3>
-    </Fragment>
-  </Content>
+  />
 
   <!-- Content Widget **************** -->
 
   <Content
-    isAfterContent
+    tagline="Research & Clinical Trial Access"
+    title="Stay Informed"
     items={[
       {
-        title: 'Time Savings',
-        description:
-          'Streamline your workflow, enabling you to create stunning materials efficiently and allocate more time to your core tasks.',
-        icon: 'tabler:clock',
+        title: 'Live Clinical Trial Finder',
+        description: 'integrated with clinicaltrials.gov but simplified for patients',
       },
       {
-        title: 'Professional Appearance',
-        description:
-          'Elevate your projects with the polished and sophisticated look that our templates provide, making a lasting impression on your audience.',
-        icon: 'tabler:school',
+        title: 'Research News Hub',
+        description: 'Weekly updates on drug approvals, AI in lung cancer, and biomarker breakthroughs—written in plain language first, with a deeper science tab for researchers.',
       },
       {
-        title: 'Cost-Efficiency',
-        description:
-          'Benefit from cost savings by avoiding the need for custom design work, as our templates offer professional-grade designs at a fraction of the cost.',
-        icon: 'tabler:coin',
-      },
-      {
-        title: 'Instant Download',
-        description:
-          'Enjoy immediate access to your chosen templates upon purchase, enabling you to begin working on your projects without delay.',
-        icon: 'tabler:file-download',
+        title: 'Researcher Collaboration Portal',
+        description: 'A space for scientists to share data and form partnerships.',
       },
     ]}
-    image={{
-      src: 'https://images.unsplash.com/photo-1552664688-cf412ec27db2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80',
-      alt: 'Benefits Image',
-    }}
-  >
-    <Fragment slot="content">
-      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">Benefits</h3>
-    </Fragment>
-  </Content>
-
-  <!-- Testimonials Widget *********** -->
-
-  <Testimonials
-    title="Words from real customers"
-    testimonials={[
-      {
-        testimonial: `The designs are not only visually appealing but also highly professional. The templates have saved me a significant amount of time while helping me make a lasting impression on my clients.`,
-        name: 'Emily Kennedy',
-        job: 'Front-end developer',
-        image: {
-          src: 'https://images.unsplash.com/photo-1618835962148-cf177563c6c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=930&q=80',
-          alt: 'Emily Kennedy Image',
-        },
-      },
-      {
-        testimonial: `It beautifully showcases my work, with its clean and elegant design that lets my photographs shine. Customization was a breeze, even for a non-tech person like me. The result is a professional and immersive portfolio that's garnered numerous compliments.`,
-        name: 'Sarah Hansen',
-        job: 'Photographer',
-        image: {
-          src: 'https://images.unsplash.com/photo-1561406636-b80293969660?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80',
-          alt: 'Sarah Hansen Image',
-        },
-      },
-      {
-        testimonial: `I discovered these templates and I'm impressed by their variety and quality. They've helped me establish a consistent brand image across my marketing and social platforms, elevating my business's overall appearance.`,
-        name: 'Mark Wilkinson',
-        job: 'Small business owner',
-        image: {
-          src: 'https://images.unsplash.com/photo-1545167622-3a6ac756afa4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=824&q=80',
-          alt: 'Mark Wilkinson Image',
-        },
-      },
-    ]}
-    callToAction={{
-      target: '_blank',
-      text: 'More testimonials...',
-      href: 'https://github.com/onwidget/astrowind',
-      icon: 'tabler:chevron-right',
-    }}
   />
 
-  <!-- CallToAction Widget *********** -->
+    <!-- Content Widget **************** -->
 
-  <CallToAction
-    actions={[
+  <Content
+    isReversed
+    tagline="Community & Storytelling"
+    title="Share Your Story"
+    items={[
       {
-        variant: 'primary',
-        text: 'Start exploring',
-        href: '/',
+        title: 'Patient & Survivor Stories (Video & Written)',
+        description: 'Filterable by stage, mutation, and journey (newly diagnosed, long-term survivor, caregiver).',
+      },
+      {
+        title: '“Day in the Life” Vlogs',
+        description: 'Real, raw patient perspectives.',
+      },
+      {
+        title: 'Discussion Forums',
+        description: 'Moderated safe spaces (Stage IV community, early-stage, caregiver groups).',
       },
     ]}
-    title="Dive into our template collection"
-    subtitle="Whether you're in business, design, or education, our templates are here to elevate your projects."
+  />
+
+  <!-- Content Widget **************** -->
+
+  <Content
+    tagline="Awareness & Education"
+    title="Learn More"
+    items={[
+      {
+        title: 'Interactive Lung Model',
+        description: 'Click to see how tumors form, how treatments work.',
+      },
+      {
+        title: 'Myth-Busting Section',
+        description: '"You must have smoked" & other stigmas addressed head-on.',
+      },
+      {
+        title: 'Downloadable Posters & Infographics',
+        description: 'for schools, workplaces, and clinics.',
+      },
+    ]}
+  />
+
+  <!-- Content Widget **************** -->
+
+  <Content
+    isReversed
+    tagline="Air Quality & Prevention Tools (MAP)"
+    title="Breathe Easier"
+    items={[
+      {
+        title: 'Live Air Quality Map',
+        description: 'Track pollution, wildfires, radon risk by postal code.',
+      },
+      {
+        title: 'Radon & Screening Resources',
+        description: 'Step-by-step guides to radon testing and LDCT screening eligibility.',
+      },
+    ]}
+  />
+
+  <!-- Content Widget **************** -->
+
+  <Content
+    tagline="Fundraising & Donation Transparency"
+    title="Support Our Work"
+    items={[
+      {
+        title: 'Where Your Money Goes Tracker',
+        description: 'visual pie chart of research, support programs, etc.',
+      },
+      {
+        title: 'Host Your Own Fundraiser Toolkit',
+        description: 'Ready-made templates for walks, online challenges, etc.',
+      },
+    ]}
   />
 </Layout>

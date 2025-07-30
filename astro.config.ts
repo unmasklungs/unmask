@@ -1,18 +1,16 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
-
 import { defineConfig } from 'astro/config';
-
-import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
+import sitemap from '@astrojs/sitemap';
 import mdx from '@astrojs/mdx';
 import partytown from '@astrojs/partytown';
 import icon from 'astro-icon';
 import compress from 'astro-compress';
+import cloudflare from '@astrojs/cloudflare';
 import type { AstroIntegration } from 'astro';
 
 import astrowind from './vendor/integration';
-
 import { readingTimeRemarkPlugin, responsiveTablesRehypePlugin, lazyImagesRehypePlugin } from './src/utils/frontmatter';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -23,6 +21,11 @@ const whenExternalScripts = (items: (() => AstroIntegration) | (() => AstroInteg
 
 export default defineConfig({
   output: 'static',
+  adapter: cloudflare({
+    platformProxy: {
+      enabled: true
+    }
+  }),
 
   integrations: [
     tailwind({

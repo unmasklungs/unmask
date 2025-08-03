@@ -74,7 +74,7 @@ export const getPermalink = (slug = '', type = 'page'): string => {
       break;
 
     case 'post':
-      permalink = createPath(trimSlash(slug.replace(/\.\w+$/, '')));
+      permalink = createPath(trimSlash(slug));
       break;
 
     case 'page':

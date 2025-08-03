@@ -6,12 +6,10 @@ import { APP_BLOG } from 'astrowind:config';
 import { cleanSlug, trimSlash, BLOG_BASE, POST_PERMALINK_PATTERN, CATEGORY_BASE, TAG_BASE } from './permalinks';
 
 const generatePermalink = async ({
-  id,
   slug,
   publishDate,
   category,
 }: {
-  id: string;
   slug: string;
   publishDate: Date;
   category: string | undefined;
@@ -24,7 +22,6 @@ const generatePermalink = async ({
   const second = String(publishDate.getSeconds()).padStart(2, '0');
 
   const permalink = POST_PERMALINK_PATTERN.replace('%slug%', slug)
-    .replace('%id%', id)
     .replace('%category%', category || '')
     .replace('%year%', year)
     .replace('%month%', month)
@@ -76,7 +73,7 @@ export const getNormalizedPost = async (post: CollectionEntry<'post'>): Promise<
   return {
     id: id,
     slug: slug,
-    permalink: await generatePermalink({ id, slug, publishDate, category: category?.slug }),
+    permalink: await generatePermalink({ slug, publishDate, category: category?.slug }),
 
     publishDate: publishDate,
     updateDate: updateDate,

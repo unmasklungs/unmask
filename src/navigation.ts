@@ -24,6 +24,10 @@ export const headerData = {
       ],
     },
     {
+      text: "Patients' Stories",
+      href: getPermalink('/stories'),
+    },
+    {
       text: 'Blog',
       links: [
         {

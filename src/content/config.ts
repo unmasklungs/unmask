@@ -46,23 +46,24 @@ const metadataDefinition = () =>
     })
     .optional();
 
+// Define the blog post schema
+const blogSchema = z.object({
+  publishDate: z.union([z.string(), z.date()]).transform(val => new Date(val)),
+  updateDate: z.union([z.string(), z.date()]).optional().transform(val => val ? new Date(val) : undefined),
+  draft: z.boolean().default(false),
+  title: z.string(),
+  excerpt: z.string().optional(),
+  image: z.string().optional(),
+  category: z.string().optional(),
+  tags: z.array(z.string()).default([]),
+  author: z.string().optional(),
+  metadata: metadataDefinition(),
+});
+
+// Define the post collection
 const postCollection = defineCollection({
-  loader: glob({ pattern: ['*.md', '*.mdx'], base: 'src/data/post' }),
-  schema: z.object({
-    publishDate: z.date().optional(),
-    updateDate: z.date().optional(),
-    draft: z.boolean().optional(),
-
-    title: z.string(),
-    excerpt: z.string().optional(),
-    image: z.string().optional(),
-
-    category: z.string().optional(),
-    tags: z.array(z.string()).optional(),
-    author: z.string().optional(),
-
-    metadata: metadataDefinition(),
-  }),
+  type: 'content',
+  schema: blogSchema,
 });
 
 export const collections = {

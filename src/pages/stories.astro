@@ -1,24 +1,70 @@
 ---
-import { SITE } from '~/config.mjs';
-import { getCanonical, getPermalink } from '~/utils/permalinks';
-import Layout from '~/layouts/PageLayout.astro';
+// @ts-ignore - Config import
+import { SITE } from '../config.mjs';
+// @ts-ignore - Utils import
+import { getCanonical, getPermalink } from '../utils/permalinks';
+import Layout from '../layouts/PageLayout.astro';
 import { getCollection } from 'astro:content';
-import type { CollectionEntry } from 'astro:content';
-import BlogList from '~/components/blog/List.astro';
-import Headline from '~/components/blog/Headline.astro';
+import BlogList from '../components/blog/List.astro';
+import Headline from '../components/blog/Headline.astro';
+import type { Post } from '../types';
 
-const meta = {
+// Define metadata for the page
+const pageMetadata = {
   title: `Patients' Stories`,
   description: "A collection of stories from patients.",
-  canonical: getCanonical(getPermalink('/stories')),
+  canonical: getCanonical(getPermalink('/stories')).toString(),
 };
 
-const posts = (await getCollection('post', ({ id }) => {
-  return id.startsWith('stories/');
-})) as Array<CollectionEntry<'post'>>;
+// Get all posts from the 'post' collection
+const allPosts = await getCollection('post');
+
+// Transform collection data to match the Post type
+const posts = allPosts
+  .filter(post => 
+    typeof post.id === 'string' &&
+    post.id.startsWith('stories/') && 
+    !post.data.draft
+  )
+  .sort((a, b) => 
+    new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime()
+  )
+  .map(post => {
+    // Extract slug from the post ID
+    const slug = typeof post.id === 'string' ? post.id.split('/').pop() || '' : '';
+    
+    // Create a Post object that matches the expected type
+    const postData: Post = {
+      id: post.id,
+      slug: slug,
+      permalink: `/stories/${slug}`,
+      publishDate: new Date(post.data.publishDate),
+      title: post.data.title || 'Untitled',
+      excerpt: post.data.excerpt || '',
+      image: post.data.image,
+      category: post.data.category ? {
+        slug: post.data.category.toLowerCase().replace(/\s+/g, '-'),
+        title: post.data.category
+      } : undefined,
+      tags: (post.data.tags || []).map((tag: string) => ({
+        slug: tag.toLowerCase().replace(/\s+/g, '-'),
+        title: tag
+      })),
+      author: post.data.author,
+      draft: post.data.draft || false,
+      content: '' // We'll load this separately if needed
+    };
+
+    // Add optional fields if they exist
+    if (post.data.updateDate) {
+      postData.updateDate = new Date(post.data.updateDate);
+    }
+
+    return postData;
+  });
 ---
 
-<Layout {meta}>
+<Layout metadata={pageMetadata}>
   <section class="px-6 sm:px-6 py-12 sm:py-16 lg:py-20 mx-auto max-w-4xl">
     <Headline
       subtitle="Patients' Stories"

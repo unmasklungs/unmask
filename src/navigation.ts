@@ -28,6 +28,19 @@ export const headerData = {
       href: getPermalink('/stories'),
     },
     {
+      text: 'Information',
+      links: [
+        {
+          text: 'For public & patients',
+          href: getPermalink('/information/public-patients'),
+        },
+        {
+          text: 'For professional',
+          href: getPermalink('/information/professional'),
+        },
+      ],
+    },
+    {
       text: 'Blog',
       links: [
         {

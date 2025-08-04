@@ -60,12 +60,33 @@ const blogSchema = z.object({
   metadata: metadataDefinition(),
 });
 
-// Define the post collection
+// Define the info page schema
+const infoPageSchema = z.object({
+  publishDate: z.union([z.string(), z.date()]).transform(val => new Date(val)),
+  updateDate: z.union([z.string(), z.date()]).optional().transform(val => val ? new Date(val) : undefined),
+  draft: z.boolean().default(false),
+  title: z.string(),
+  excerpt: z.string().optional(),
+  image: z.string().optional(),
+  category: z.string().optional(),
+  tags: z.array(z.string()).default([]),
+  author: z.string().optional(),
+  audience: z.enum(['public', 'patients', 'professionals']).default('public'),
+  metadata: metadataDefinition(),
+});
+
+// Define the collections
 const postCollection = defineCollection({
   type: 'content',
   schema: blogSchema,
 });
 
+const infoCollection = defineCollection({
+  type: 'content',
+  schema: infoPageSchema,
+});
+
 export const collections = {
   post: postCollection,
+  info: infoCollection,
 };

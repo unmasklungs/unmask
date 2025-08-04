@@ -1,0 +1,70 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/PageLayout.astro';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { SITE } from 'astrowind:config';
+
+// This function tells Astro which pages to generate at build time
+export async function getStaticPaths() {
+  const allPages = await getCollection('info');
+  
+  return allPages.map(page => ({
+    params: { 
+      slug: page.slug 
+    },
+    props: { page },
+  }));
+}
+
+// Get the current page from props
+const { page } = Astro.props;
+
+// Render the page content
+const { Content } = await page.render();
+
+// Set page metadata
+const title = page.data.title;
+const description = page.data.excerpt || '';
+const currentUrl = new URL(Astro.url.pathname, 'https://unmaskinglungcancer.ca').toString();
+const metadata = {
+  title,
+  description,
+  canonical: currentUrl,
+};
+---
+
+<Layout metadata={metadata}>
+  <article class="prose mx-auto px-4 py-8">
+    <header class="mb-8">
+      <h1 class="text-4xl font-bold mb-4">{title}</h1>
+      {page.data.author && (
+        <p class="text-gray-600">By {page.data.author}</p>
+      )}
+      <p class="text-gray-500 text-sm">
+        Published on {page.data.publishDate.toLocaleDateString('en-CA', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        })}
+      </p>
+    </header>
+    
+    <div class="content">
+      <Content />
+    </div>
+    
+    {page.data.tags && page.data.tags.length > 0 && (
+      <div class="mt-8 pt-4 border-t border-gray-200">
+        <span class="font-medium mr-2">Tags:</span>
+        {page.data.tags.map(tag => (
+          <a 
+            href={`/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}
+            class="inline-block bg-gray-100 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 hover:bg-gray-200"
+          >
+            {tag}
+          </a>
+        ))}
+      </div>
+    )}
+  </article>
+</Layout>

@@ -1,0 +1,107 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/PageLayout.astro';
+
+// Get the current URL for canonical link
+const currentUrl = new URL(Astro.url.pathname, 'https://unmaskinglungcancer.ca').toString();
+
+// Get all info pages that are not drafts
+const allPages = (await getCollection('info'))
+  .filter(page => !page.data.draft)
+  .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime());
+
+// Group pages by audience
+interface InfoPageData {
+  audience?: string;
+  publishDate: Date;
+  draft?: boolean;
+  [key: string]: unknown;
+  // Add other page data properties here as needed
+}
+
+interface InfoPage {
+  slug: string;
+  data: InfoPageData;
+  // Add other page properties here as needed
+}
+
+const pagesByAudience = allPages.reduce<Record<string, InfoPage[]>>((acc, page) => {
+  const audience = page.data.audience || 'public';
+  if (!acc[audience]) {
+    acc[audience] = [];
+  }
+  acc[audience].push(page);
+  return acc;
+}, {});
+
+// Set page metadata
+const metadata = {
+  title: 'Information & Resources',
+  description: 'Educational resources and information about lung cancer, radon, and more.',
+  canonical: currentUrl,
+};
+---
+
+<Layout metadata={metadata}>
+  <div class="max-w-4xl mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold mb-8">Information & Resources</h1>
+    
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-6">For Everyone</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        {pagesByAudience['public']?.map(page => (
+          <a 
+            href={`/info/${page.slug}`}
+            class="block p-6 bg-white rounded-lg border border-gray-200 hover:border-blue-500 hover:shadow-lg transition-shadow"
+          >
+            <h3 class="text-xl font-semibold mb-2">{page.data.title}</h3>
+            {page.data.excerpt && (
+              <p class="text-gray-600 mb-3">{page.data.excerpt}</p>
+            )}
+            <span class="text-blue-600 font-medium">Read more →</span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    {pagesByAudience['patients'] && (
+      <section class="mb-12">
+        <h2 class="text-2xl font-semibold mb-6">For Patients & Families</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+          {pagesByAudience['patients'].map(page => (
+            <a 
+              href={`/info/${page.slug}`}
+              class="block p-6 bg-white rounded-lg border border-gray-200 hover:border-blue-500 hover:shadow-lg transition-shadow"
+            >
+              <h3 class="text-xl font-semibold mb-2">{page.data.title}</h3>
+              {page.data.excerpt && (
+                <p class="text-gray-600 mb-3">{page.data.excerpt}</p>
+              )}
+              <span class="text-blue-600 font-medium">Read more →</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {pagesByAudience['professionals'] && (
+      <section class="mb-12">
+        <h2 class="text-2xl font-semibold mb-6">For Healthcare Professionals</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+          {pagesByAudience['professionals'].map(page => (
+            <a 
+              href={`/info/${page.slug}`}
+              class="block p-6 bg-white rounded-lg border border-gray-200 hover:border-blue-500 hover:shadow-lg transition-shadow"
+            >
+              <h3 class="text-xl font-semibold mb-2">{page.data.title}</h3>
+              {page.data.excerpt && (
+                <p class="text-gray-600 mb-3">{page.data.excerpt}</p>
+              )}
+              <span class="text-blue-600 font-medium">Read more →</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+  </div>
+</Layout>

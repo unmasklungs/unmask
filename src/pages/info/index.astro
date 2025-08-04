@@ -15,8 +15,7 @@ console.log('All pages:', allPages.map(p => ({
   data: {
     title: p.data.title,
     draft: p.data.draft,
-    publishDate: p.data.publishDate,
-    audience: p.data.audience
+    publishDate: p.data.publishDate
   }
 })));
 
@@ -49,7 +48,7 @@ const metadata = {
         <div class="grid md:grid-cols-2 gap-6">
           {publicPages.map(page => (
             <a 
-              href={`/info/${page.slug}`}
+              href={`/info/${page.slug}/`}
               class="block p-6 bg-white rounded-lg border border-gray-200 hover:border-blue-500 hover:shadow-lg transition-shadow"
             >
               <h3 class="text-xl font-semibold mb-2">{page.data.title}</h3>
@@ -71,7 +70,7 @@ const metadata = {
         <div class="grid md:grid-cols-2 gap-6">
           {professionalPages.map(page => (
             <a 
-              href={`/info/${page.slug}`}
+              href={`/info/${page.slug}/`}
               class="block p-6 bg-white rounded-lg border border-gray-200 hover:border-blue-500 hover:shadow-lg transition-shadow"
             >
               <h3 class="text-xl font-semibold mb-2">{page.data.title}</h3>

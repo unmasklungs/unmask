@@ -1,5 +1,5 @@
 import { z, defineCollection } from 'astro:content';
-import { glob } from 'astro/loaders';
+
 
 const metadataDefinition = () =>
   z
@@ -71,7 +71,6 @@ const infoPageSchema = z.object({
   category: z.string().optional(),
   tags: z.array(z.string()).default([]),
   author: z.string().optional(),
-  audience: z.enum(['public', 'patients', 'professionals']).default('public'),
   metadata: metadataDefinition(),
 });
 

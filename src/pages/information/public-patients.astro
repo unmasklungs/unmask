@@ -1,11 +1,12 @@
 ---
 import { getCollection } from 'astro:content';
 import PageLayout from '../../layouts/PageLayout.astro';
-import ListItem from '../../components/blog/ListItem.astro';
 
-const posts = (await getCollection('post')).filter(
-  (post) => post.data.category === 'For public & patients'
-);
+// Get all info pages that are not drafts
+const allPages = (await getCollection('info')).filter(page => !page.data.draft);
+
+// Filter for public pages
+const publicPages = allPages.filter(page => page.id.startsWith('public/'));
 
 const metadata = {
   title: 'For Public & Patients',
@@ -14,18 +15,28 @@ const metadata = {
 ---
 
 <PageLayout metadata={metadata}>
-  <section class="py-16 sm:py-20">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-      <h1 class="text-4xl font-bold text-center mb-8">For Public & Patients</h1>
-      <p class="text-lg text-center">This section will contain information and resources tailored for the general public and patients concerning radon gas and lung cancer.</p>
-      <p class="text-lg text-center mt-4">Below are relevant articles:</p>
-      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 items-start mt-8">
-        {
-          posts.map((post) => (
-            <ListItem post={post} />
-          ))
-        }
-      </div>
-    </div>
-  </section>
+  <div class="max-w-4xl mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold mb-8">For Public & Patients</h1>
+    
+    <section class="mb-12">
+      {publicPages.length > 0 ? (
+        <div class="grid md:grid-cols-2 gap-6">
+          {publicPages.map(page => (
+            <a 
+              href={`/info/${page.slug}`}
+              class="block p-6 bg-white rounded-lg border border-gray-200 hover:border-blue-500 hover:shadow-lg transition-shadow"
+            >
+              <h3 class="text-xl font-semibold mb-2">{page.data.title}</h3>
+              {page.data.excerpt && (
+                <p class="text-gray-600 mb-3">{page.data.excerpt}</p>
+              )}
+              <span class="text-blue-600 font-medium">Read more →</span>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <p class="text-gray-600">No public resources available at the moment.</p>
+      )}
+    </section>
+  </div>
 </PageLayout>

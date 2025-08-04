@@ -6,33 +6,30 @@ import Layout from '../../layouts/PageLayout.astro';
 const currentUrl = new URL(Astro.url.pathname, 'https://unmaskinglungcancer.ca').toString();
 
 // Get all info pages that are not drafts
-const allPages = (await getCollection('info'))
-  .filter(page => !page.data.draft)
-  .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime());
+const allPages = (await getCollection('info'));
 
-// Group pages by audience
-interface InfoPageData {
-  audience?: string;
-  publishDate: Date;
-  draft?: boolean;
-  [key: string]: unknown;
-  // Add other page data properties here as needed
-}
-
-interface InfoPage {
-  slug: string;
-  data: InfoPageData;
-  // Add other page properties here as needed
-}
-
-const pagesByAudience = allPages.reduce<Record<string, InfoPage[]>>((acc, page) => {
-  const audience = page.data.audience || 'public';
-  if (!acc[audience]) {
-    acc[audience] = [];
+// Debug: Log all pages and their properties
+console.log('All pages:', allPages.map(p => ({
+  id: p.id,
+  slug: p.slug,
+  data: {
+    title: p.data.title,
+    draft: p.data.draft,
+    publishDate: p.data.publishDate,
+    audience: p.data.audience
   }
-  acc[audience].push(page);
-  return acc;
-}, {});
+})));
+
+const nonDraftPages = allPages.filter(page => !page.data.draft);
+console.log('Non-draft pages:', nonDraftPages.length);
+
+// Group pages by directory (public/professionals)
+const publicPages = nonDraftPages.filter(page => page.id.startsWith('public/'));
+const professionalPages = nonDraftPages.filter(page => page.id.startsWith('professionals/'));
+
+console.log('Public pages:', publicPages.length);
+console.log('Professional pages:', professionalPages.length);
+console.log('Public page IDs:', publicPages.map(p => p.id));
 
 // Set page metadata
 const metadata = {
@@ -47,28 +44,32 @@ const metadata = {
     <h1 class="text-4xl font-bold mb-8">Information & Resources</h1>
     
     <section class="mb-12">
-      <h2 class="text-2xl font-semibold mb-6">For Everyone</h2>
-      <div class="grid md:grid-cols-2 gap-6">
-        {pagesByAudience['public']?.map(page => (
-          <a 
-            href={`/info/${page.slug}`}
-            class="block p-6 bg-white rounded-lg border border-gray-200 hover:border-blue-500 hover:shadow-lg transition-shadow"
-          >
-            <h3 class="text-xl font-semibold mb-2">{page.data.title}</h3>
-            {page.data.excerpt && (
-              <p class="text-gray-600 mb-3">{page.data.excerpt}</p>
-            )}
-            <span class="text-blue-600 font-medium">Read more →</span>
-          </a>
-        ))}
-      </div>
+      <h2 class="text-2xl font-semibold mb-6">For Public & Patients</h2>
+      {publicPages.length > 0 ? (
+        <div class="grid md:grid-cols-2 gap-6">
+          {publicPages.map(page => (
+            <a 
+              href={`/info/${page.slug}`}
+              class="block p-6 bg-white rounded-lg border border-gray-200 hover:border-blue-500 hover:shadow-lg transition-shadow"
+            >
+              <h3 class="text-xl font-semibold mb-2">{page.data.title}</h3>
+              {page.data.excerpt && (
+                <p class="text-gray-600 mb-3">{page.data.excerpt}</p>
+              )}
+              <span class="text-blue-600 font-medium">Read more →</span>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <p class="text-gray-600">No public resources available at the moment.</p>
+      )}
     </section>
 
-    {pagesByAudience['patients'] && (
-      <section class="mb-12">
-        <h2 class="text-2xl font-semibold mb-6">For Patients & Families</h2>
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-6">For Healthcare Professionals</h2>
+      {professionalPages.length > 0 ? (
         <div class="grid md:grid-cols-2 gap-6">
-          {pagesByAudience['patients'].map(page => (
+          {professionalPages.map(page => (
             <a 
               href={`/info/${page.slug}`}
               class="block p-6 bg-white rounded-lg border border-gray-200 hover:border-blue-500 hover:shadow-lg transition-shadow"
@@ -81,27 +82,9 @@ const metadata = {
             </a>
           ))}
         </div>
-      </section>
-    )}
-
-    {pagesByAudience['professionals'] && (
-      <section class="mb-12">
-        <h2 class="text-2xl font-semibold mb-6">For Healthcare Professionals</h2>
-        <div class="grid md:grid-cols-2 gap-6">
-          {pagesByAudience['professionals'].map(page => (
-            <a 
-              href={`/info/${page.slug}`}
-              class="block p-6 bg-white rounded-lg border border-gray-200 hover:border-blue-500 hover:shadow-lg transition-shadow"
-            >
-              <h3 class="text-xl font-semibold mb-2">{page.data.title}</h3>
-              {page.data.excerpt && (
-                <p class="text-gray-600 mb-3">{page.data.excerpt}</p>
-              )}
-              <span class="text-blue-600 font-medium">Read more →</span>
-            </a>
-          ))}
-        </div>
-      </section>
-    )}
+      ) : (
+        <p class="text-gray-600">No professional resources available at the moment.</p>
+      )}
+    </section>
   </div>
 </Layout>

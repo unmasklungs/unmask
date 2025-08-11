@@ -1,4 +1,4 @@
-import { getPermalink, getBlogPermalink, getAsset } from './utils/permalinks';
+import { getPermalink, getAsset } from './utils/permalinks';
 
 export const headerData = {
   links: [
@@ -24,46 +24,24 @@ export const headerData = {
       ],
     },
     {
-      text: "Patients' Stories",
+      text: 'Patient Journey',
       href: getPermalink('/stories'),
     },
     {
-      text: 'Information',
-      links: [
-        {
-          text: 'For public & patients',
-          href: getPermalink('/information/public-patients'),
-        },
-        {
-          text: 'For professional',
-          href: getPermalink('/information/professional'),
-        },
-      ],
+      text: 'Patients & Caregiver Hub',
+      href: getPermalink('/information/patients-caregiver-hub'),
     },
     {
-      text: 'Blog',
-      links: [
-        {
-          text: 'Blog List',
-          href: getBlogPermalink(),
-        },
-        {
-          text: 'Article',
-          href: getPermalink('get-started-website-with-astro-tailwind-css', 'post'),
-        },
-        {
-          text: 'Article (with MDX)',
-          href: getPermalink('markdown-elements-demo-post', 'post'),
-        },
-        {
-          text: 'Category Page',
-          href: getPermalink('tutorials', 'category'),
-        },
-        {
-          text: 'Tag Page',
-          href: getPermalink('astro', 'tag'),
-        },
-      ],
+      text: 'Professional',
+      href: getPermalink('/information/professional'),
+    },
+    {
+      text: 'Partners and Sponsors',
+      href: getPermalink('/information/partners-sponsors'),
+    },
+    {
+      text: 'Maps',
+      href: getPermalink('/maps'),
     },
   ],
   actions: [{ text: 'Donate', href: 'https://github.com/onwidget/astrowind', target: '_blank' }],

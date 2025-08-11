@@ -1,7 +1,4 @@
 ---
-// @ts-ignore - Config import
-import { SITE } from '../config.mjs';
-// @ts-ignore - Utils import
 import { getCanonical, getPermalink } from '../utils/permalinks';
 import Layout from '../layouts/PageLayout.astro';
 import { getCollection } from 'astro:content';
@@ -11,8 +8,8 @@ import type { Post } from '../types';
 
 // Define metadata for the page
 const pageMetadata = {
-  title: `Patients' Stories`,
-  description: "A collection of stories from patients.",
+  title: 'Patient Journey',
+  description: "Explore personal journeys and experiences from patients and caregivers.",
   canonical: getCanonical(getPermalink('/stories')).toString(),
 };
 
@@ -67,9 +64,9 @@ const posts = allPosts
 <Layout metadata={pageMetadata}>
   <section class="px-6 sm:px-6 py-12 sm:py-16 lg:py-20 mx-auto max-w-4xl">
     <Headline
-      subtitle="Patients' Stories"
+      subtitle="Patient Journey"
     >
-      Patients' Stories
+      Patient Journey
     </Headline>
     <BlogList posts={posts} />
   </section>

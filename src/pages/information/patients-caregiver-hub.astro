@@ -9,14 +9,14 @@ const allPages = (await getCollection('info')).filter(page => !page.data.draft);
 const publicPages = allPages.filter(page => page.id.startsWith('public/'));
 
 const metadata = {
-  title: 'For Public & Patients',
-  description: 'Information for the public and patients regarding radon gas and lung cancer.',
+  title: 'Patients & Caregiver Hub',
+  description: 'Resources and information for patients and caregivers about radon gas and lung cancer.',
 };
 ---
 
 <PageLayout metadata={metadata}>
   <div class="max-w-4xl mx-auto px-4 py-12">
-    <h1 class="text-4xl font-bold mb-8">For Public & Patients</h1>
+    <h1 class="text-4xl font-bold mb-8">Patients & Caregiver Hub</h1>
     
     <section class="mb-12">
       {publicPages.length > 0 ? (

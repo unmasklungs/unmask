@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../layouts/PageLayout.astro';
+
+// Get all info pages that are not drafts
+const allPages = (await getCollection('info')).filter(page => !page.data.draft);
+
+// Filter for public pages
+const publicPages = allPages.filter(page => page.id.startsWith('public/'));
+
+const metadata = {
+  title: 'Partners and Sponsors',
+  description: 'Our valued partners and sponsors who support our mission to raise awareness about radon gas and lung cancer.',
+};
+---
+
+<PageLayout metadata={metadata}>
+  <div class="max-w-4xl mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold mb-8">Our Valued Partners & Sponsors</h1>
+    
+    <section class="mb-12">
+      <div class="space-y-8">
+        <div class="p-6 bg-white rounded-lg border border-gray-200">
+          <h2 class="text-2xl font-semibold mb-4">Company A</h2>
+          <p class="text-gray-600">Company A is a proud partner in our mission to raise awareness about radon gas and its health impacts. Their support helps us provide valuable resources to the community.</p>
+        </div>
+        
+        <div class="p-6 bg-white rounded-lg border border-gray-200">
+          <h2 class="text-2xl font-semibold mb-4">Organization B</h2>
+          <p class="text-gray-600">Organization B's generous sponsorship enables us to continue our research and education efforts in the fight against radon-induced lung cancer.</p>
+        </div>
+      </div>
+    </section>
+
+    {publicPages.length > 0 && (
+      <section>
+        <h2 class="text-2xl font-bold mb-6">More Information</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+          {publicPages.map(page => {
+            console.log('Page data:', page.data);
+            return (
+              <a 
+                href={`/info/${page.slug}`}
+                class="block p-6 bg-white rounded-lg border border-gray-200 hover:border-blue-500 hover:shadow-lg transition-shadow"
+              >
+                <h3 class="text-xl font-semibold mb-2">{page.data.title}</h3>
+                {page.data.metadata?.description && (
+                  <p class="text-gray-600">{page.data.metadata.description}</p>
+                )}
+              </a>
+            );
+          })}
+        </div>
+      </section>
+    )}
+  </div>
+</PageLayout>

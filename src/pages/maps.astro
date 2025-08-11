@@ -1,0 +1,85 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+
+const metadata = {
+  title: 'Maps',
+  description: 'Interactive maps showing radon levels and related information.',
+};
+
+// Sample data for demonstration
+const locations = [
+  { id: 1, name: 'Vancouver General Hospital', lat: 49.2628, lng: -123.1212, radonLevel: 'Low' },
+  { id: 2, name: 'BC Cancer Agency', lat: 49.2644, lng: -123.1193, radonLevel: 'Medium' },
+  { id: 3, name: 'St. Paul\'s Hospital', lat: 49.2806, lng: -123.1290, radonLevel: 'High' },
+];
+---
+
+<PageLayout metadata={metadata}>
+  <div class="max-w-6xl mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold mb-8">Radon Level Maps</h1>
+    
+    <div class="grid md:grid-cols-3 gap-8 mb-8">
+      <div class="md:col-span-2">
+        <div class="bg-gray-100 rounded-lg overflow-hidden" style="height: 500px;">
+          <!-- Map placeholder - would be replaced with actual map implementation -->
+          <div class="h-full w-full flex items-center justify-center bg-gradient-to-br from-blue-100 to-blue-200">
+            <div class="text-center p-6">
+              <div class="text-2xl font-semibold mb-2">Interactive Map</div>
+              <p class="text-gray-600 mb-4">This would display an interactive map showing radon levels by location.</p>
+              <div class="inline-block px-4 py-2 bg-blue-100 border border-blue-300 rounded text-blue-700">
+                Map Integration Placeholder
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="space-y-4">
+        <div class="bg-white p-6 rounded-lg shadow">
+          <h2 class="text-xl font-semibold mb-4">Legend</h2>
+          <div class="space-y-2">
+            <div class="flex items-center">
+              <div class="w-4 h-4 bg-green-500 rounded-full mr-2"></div>
+              <span>Low Pollution Levels</span>
+            </div>
+            <div class="flex items-center">
+              <div class="w-4 h-4 bg-yellow-500 rounded-full mr-2"></div>
+              <span>Medium Pollution Levels</span>
+            </div>
+            <div class="flex items-center">
+              <div class="w-4 h-4 bg-red-500 rounded-full mr-2"></div>
+              <span>High Pollution Levels</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-white p-6 rounded-lg shadow">
+          <h2 class="text-xl font-semibold mb-4">Locations</h2>
+          <div class="space-y-3">
+            {locations.map(location => (
+              <div class="p-3 border rounded hover:bg-gray-50 cursor-pointer">
+                <div class="font-medium">{location.name}</div>
+                <div class="text-sm text-gray-500">Radon Level: {location.radonLevel}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-8">
+      <div class="flex">
+        <div class="flex-shrink-0">
+          <svg class="h-5 w-5 text-blue-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h.01a1 1 0 100-2H10V9z" clip-rule="evenodd" />
+          </svg>
+        </div>
+        <div class="ml-3">
+          <p class="text-sm text-blue-700">
+            This is a demonstration of how the maps section could look. In a production environment, this would be integrated with a mapping service like Google Maps or Mapbox.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</PageLayout>

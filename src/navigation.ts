@@ -36,7 +36,7 @@ export const headerData = {
       href: getPermalink('/information/professional'),
     },
     {
-      text: 'Partner & Sponser',
+      text: 'Partner',
       href: getPermalink('/partners-sponsors'),
     },
     {

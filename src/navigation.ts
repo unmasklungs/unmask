@@ -24,11 +24,11 @@ export const headerData = {
       ],
     },
     {
-      text: 'Patient Journey',
+      text: 'Patients Journey',
       href: getPermalink('/stories'),
     },
     {
-      text: 'Patients & Caregiver Hub',
+      text: 'Patients & Caregivers Hub',
       href: getPermalink('/information/patients-caregiver-hub'),
     },
     {
@@ -36,7 +36,7 @@ export const headerData = {
       href: getPermalink('/information/professional'),
     },
     {
-      text: 'Partners and Sponsors',
+      text: 'Partners',
       href: getPermalink('/information/partners-sponsors'),
     },
     {

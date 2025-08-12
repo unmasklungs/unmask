@@ -1,9 +1,10 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
+import CanadaMap from '../components/CanadaMap.astro';
 
 const metadata = {
-  title: 'Maps',
-  description: 'Interactive maps showing radon levels and related information.',
+  title: 'Canadian Electoral Districts Map',
+  description: 'Interactive map of Canadian electoral districts',
 };
 
 // Sample data for demonstration
@@ -16,7 +17,15 @@ const locations = [
 
 <PageLayout metadata={metadata}>
   <div class="max-w-6xl mx-auto px-4 py-12">
-    <h1 class="text-4xl font-bold mb-8">Radon Level Maps</h1>
+    <h1 class="text-4xl font-bold mb-8">Canadian Electoral Districts</h1>
+    <p class="mb-8 text-gray-600">
+      Click on any district to view more information. Use your mouse wheel to zoom in/out and drag to pan.
+    </p>
+    
+    <!-- Interactive Canada Map -->
+    <div class="mb-12">
+      <CanadaMap width={800} height={600} client:load />
+    </div>
     
     <div class="grid md:grid-cols-3 gap-8 mb-8">
       <div class="md:col-span-2">
@@ -48,7 +57,7 @@ const locations = [
             </div>
             <div class="flex items-center">
               <div class="w-4 h-4 bg-red-500 rounded-full mr-2"></div>
-              <span>High Pollution Levels</span>
+              <span>High RaPollutiondon Levels</span>
             </div>
           </div>
         </div>

@@ -17,6 +17,11 @@ const { width = 1200, height = 675 } = Astro.props;
   <div id="map" style={`width: 100%; height: ${height}px; position: relative;`}>
     <div id="tooltip" class="tooltip"></div>
   </div>
+  <div id="info-panel" class="info-panel mt-4 border border-gray-200 rounded-lg p-4 bg-white shadow-sm">
+    <div id="info-content">
+      <p class="text-gray-500">Click on a region to see details</p>
+    </div>
+  </div>
 </div>
 
 <!-- Client-side JavaScript for the interactive map -->
@@ -60,8 +65,9 @@ const { width = 1200, height = 675 } = Astro.props;
       let projection = d3.geoIdentity();
       let path = d3.geoPath().projection(projection);
 
-      // Tooltip setup
+      // Tooltip and info panel setup
       const tooltip = d3.select('#tooltip');
+      const infoPanel = d3.select('#info-content');
       
       // Function to handle mouseover events
       function handleMouseOver(
@@ -77,23 +83,16 @@ const { width = 1200, height = 675 } = Astro.props;
           .attr('opacity', 0.7)
           .attr('stroke', '#333')
           .attr('stroke-width', 1.5);
-
-        // Show tooltip with district info
+          
+        // Show only the region name near the mouse
         const [x, y] = d3.pointer(event, container);
-        const name = d.properties.ERNAME || 'Unknown District';
-        const area = (d.properties.LANDAREA || 0).toLocaleString('en-CA', {
-          maximumFractionDigits: 0
-        });
+        const name = d.properties.ERNAME || 'Unknown Region';
         
         tooltip
           .style('left', `${x + 10}px`)
           .style('top', `${y - 10}px`)
           .style('opacity', 1)
-          .html(`
-            <div class="font-bold">${name}</div>
-            <div>Area: ${area} km²</div>
-            <div>Region ID: ${d.properties.ERUID}</div>
-          `);
+          .text(name);
       }
 
       // Function to handle mouseout events
@@ -103,9 +102,9 @@ const { width = 1200, height = 675 } = Astro.props;
           .duration(200)
           .attr('opacity', 1)
           .attr('stroke', '#fff')
-          .attr('stroke-width', 0.8);
-        
-        // Hide tooltip
+          .attr('stroke-width', 0.5);
+          
+        // Hide the tooltip
         tooltip.style('opacity', 0);
       }
 
@@ -115,28 +114,52 @@ const { width = 1200, height = 675 } = Astro.props;
         event: MouseEvent,
         d: d3.ExtendedFeature<d3.GeoGeometryObjects | null, ProvinceProperties>
       ) {
-        const name = d.properties?.ERNAME || 'Unknown District';
-        console.log(`Clicked on: ${name}`, d.properties);
+        if (!d.properties) return;
         
-        // Toggle highlight on click
-        const isHighlighted = d3.select(this).attr('data-highlighted') === 'true';
+        // Toggle selection
+        const isSelected = d3.select(this).classed('selected');
         
-        // Reset all highlights
-        d3.selectAll('path').attr('data-highlighted', 'false');
+        // Reset all selections
+        d3.selectAll('path').classed('selected', false);
         
-        if (!isHighlighted) {
-          // Highlight the clicked district
-          d3.select(this)
-            .attr('data-highlighted', 'true')
-            .attr('opacity', 1)
-            .attr('stroke', '#ff6b6b')
-            .attr('stroke-width', 2);
+        // Toggle the clicked path
+        d3.select(this).classed('selected', !isSelected);
+        
+        if (!isSelected) {
+          // Show info in the side panel
+          const name = d.properties.ERNAME || 'Unknown District';
+          const area = (d.properties.LANDAREA || 0).toLocaleString('en-CA', {
+            maximumFractionDigits: 0
+          });
+          
+          infoPanel.html(`
+            <div class="space-y-3">
+              <h4 class="text-lg font-semibold border-b pb-2">${name}</h4>
+              <div class="space-y-2">
+                <div class="flex justify-between">
+                  <span class="text-gray-600">Area:</span>
+                  <span class="font-medium">${area} km²</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">Region ID:</span>
+                  <span class="font-mono">${d.properties.ERUID}</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">Province ID:</span>
+                  <span>${d.properties.PRUID}</span>
+                </div>
+                <div class="pt-2 mt-2 border-t">
+                  <h5 class="font-medium mb-1">Radon Level (Random data ,to be fixed)</h5>
+                  <div class="w-full bg-gray-200 rounded-full h-2.5">
+                    <div class="bg-blue-600 h-2.5 rounded-full" style="width: ${Math.random() * 100}%"></div>
+                  </div>
+                  <div class="text-right text-sm text-gray-500 mt-1">${(Math.random() * 10).toFixed(1)} pCi/L</div>
+                </div>
+              </div>
+            </div>
+          `);
         } else {
-          // If already highlighted, reset all
-          d3.selectAll('path')
-            .attr('opacity', 1)
-            .attr('stroke', '#fff')
-            .attr('stroke-width', 0.8);
+          infoPanel.html('<p class="text-gray-500">Click on a region to see details</p>');
         }
       }
 
@@ -204,7 +227,7 @@ const { width = 1200, height = 675 } = Astro.props;
         .attr('d', path)
         .attr('fill', getProvinceColor)
         .attr('stroke', '#fff')
-        .attr('stroke-width', 0.8)
+        .attr('stroke-width', 0.5)
         .attr('opacity', 0.9)
         .attr('data-highlighted', 'false')
         .style('transition', 'all 0.2s ease')
@@ -221,20 +244,13 @@ const { width = 1200, height = 675 } = Astro.props;
       });
 
       // Add zoom behavior with better constraints
-      const zoom = d3.zoom()
-        .scaleExtent([0.2, 8])  // Allow more zoom out
-        .translateExtent([[0, 0], [containerWidth, containerHeight]])
+      const zoom = d3.zoom<SVGSVGElement, unknown>()
+        .scaleExtent([0.8, 8])
         .on('zoom', (event) => {
-          // Apply the transform to the group
           g.attr('transform', event.transform);
-          
-          // Adjust stroke width based on zoom level
-          const scale = event.transform.k;
-          g.selectAll('path')
-            .attr('stroke-width', 0.8 / scale);
         });
-        
-      // Apply the zoom behavior to the SVG
+
+      // Apply initial zoom to fit the map nicely
       svg.call(zoom);
       
       // Reset to the initial zoom level (same as reset button)
@@ -272,9 +288,19 @@ const { width = 1200, height = 675 } = Astro.props;
     border: 1px solid #e2e8f0;
     border-radius: 0.5rem;
     overflow: hidden;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    position: relative;
-    background: #f8fafc;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    background: white;
+    padding: 1rem;
+  }
+  
+  .info-panel {
+    margin-top: 1rem;
+    min-height: 150px;
+  }
+  
+  .info-panel h3 {
+    color: #1a365d;
+    margin-bottom: 1rem;
   }
   
   path {
@@ -294,8 +320,8 @@ const { width = 1200, height = 675 } = Astro.props;
     opacity: 0;
     transition: opacity 0.2s;
     z-index: 10;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-    min-width: 120px;
+    white-space: nowrap;
+    font-weight: 500;
   }
   
   .reset-zoom {

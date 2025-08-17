@@ -204,15 +204,7 @@ const { width = 1200, height = 675 } = Astro.props;
         '#f1ce63', '#b5c8d1', '#d37295', '#f1a208', '#a0cbe8'
       ]);
       
-      // Add a title to the map
-      svg.append('text')
-        .attr('x', containerWidth / 2)
-        .attr('y', 30)
-        .attr('text-anchor', 'middle')
-        .style('font-size', '20px')
-        .style('font-weight', 'bold')
-        .text('Canadian Electoral Districts');
-      
+      // Title removed as requested
       // Function to get color based on PRUID (province code)
       const getProvinceColor = (d: d3.ExtendedFeature<d3.GeoGeometryObjects | null, ProvinceProperties>) => {
         const pruid = d.properties?.PRUID || 'default';

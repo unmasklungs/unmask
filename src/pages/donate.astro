@@ -1,0 +1,89 @@
+---
+import Layout from '../layouts/PageLayout.astro';
+
+const metadata = {
+  title: 'Support Our Cause',
+  description: 'Support organizations working on lung cancer research and awareness',
+};
+---
+
+<Layout metadata={metadata}>
+  <div class="max-w-6xl mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold mb-8">Support Our Cause</h1>
+    
+    <div class="prose dark:prose-invert max-w-none">
+      <p class="text-lg mb-8">
+        We partner with leading organizations dedicated to lung cancer research, awareness, and support. 
+        Consider supporting these organizations in their mission to fight lung cancer.
+      </p>
+
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3 mt-12">
+        <!-- Organization 1 -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+          <div class="p-6">
+            <h2 class="text-2xl font-bold mb-3">Organization A</h2>
+            <p class="text-gray-600 dark:text-gray-300 mb-4">
+              Leading research in lung cancer prevention and treatment.
+            </p>
+            <a 
+              href="#" 
+              class="inline-block px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Learn More
+            </a>
+          </div>
+        </div>
+
+        <!-- Organization 2 -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+          <div class="p-6">
+            <h2 class="text-2xl font-bold mb-3">Organization B</h2>
+            <p class="text-gray-600 dark:text-gray-300 mb-4">
+              Dedicated to funding cancer research and supporting patients.
+            </p>
+            <a 
+              href="#" 
+              class="inline-block px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Learn More
+            </a>
+          </div>
+        </div>
+
+        <!-- Organization 3 -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+          <div class="p-6">
+            <h2 class="text-2xl font-bold mb-3">Organization C</h2>
+            <p class="text-gray-600 dark:text-gray-300 mb-4">
+              Focused on improving lung health through research and education.
+            </p>
+            <a 
+              href="#" 
+              class="inline-block px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Learn More
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-12 bg-blue-50 dark:bg-blue-900/20 p-6 rounded-lg">
+        <h2 class="text-2xl font-bold mb-4">Why Support These Organizations?</h2>
+        <p class="mb-4">
+          Your support helps fund critical research, provide patient support services, and raise awareness 
+          about lung cancer prevention and early detection.
+        </p>
+        <p>
+          While we don't process donations directly, we encourage you to visit these organizations' websites 
+          to learn more about their work and how you can contribute.
+        </p>
+      </div>
+    </div>
+  </div>
+</Layout>

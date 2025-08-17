@@ -44,7 +44,7 @@ export const headerData = {
       href: getPermalink('/maps'),
     },
   ],
-  actions: [{ text: 'Donate', href: 'https://github.com/onwidget/astrowind', target: '_blank' }],
+  actions: [{ text: 'Donate', href: getPermalink('/donate') }],
 };
 
 export const footerData = {

@@ -4,7 +4,7 @@ export const headerData = {
   links: [
     {
       text: 'About',
-      links: [
+      items: [
         {
           text: 'About Us',
           href: getPermalink('/about'),
@@ -14,26 +14,31 @@ export const headerData = {
           href: getPermalink('/founder'),
         },
         {
-          text: 'Services',
-          href: getPermalink('/services'),
-        },
-        {
           text: 'Contact',
           href: getPermalink('/contact'),
         },
       ],
     },
     {
+      text: 'Services',
+      href: getPermalink('/services'),
+    },
+    {
       text: 'Patient Journey',
       href: getPermalink('/stories'),
     },
     {
-      text: 'Patient & Caregiver Hub',
-      href: getPermalink('/information/patients-caregiver-hub'),
-    },
-    {
-      text: 'Professional',
-      href: getPermalink('/information/professional'),
+      text: 'Knowledge base',
+      items: [
+        {
+          text: 'Patient & Caregiver Hub',
+          href: getPermalink('/information/patients-caregiver-hub'),
+        },
+        {
+          text: 'Professional',
+          href: getPermalink('/information/professional'),
+        },
+      ],
     },
     {
       text: 'Partner',

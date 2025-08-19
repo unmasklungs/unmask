@@ -1,0 +1,39 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import { getPermalink } from '~/utils/permalinks';
+
+const pageTitle = 'Ask a Nurse';
+const pageDescription = 'Get professional nursing advice and support';
+---
+
+<Layout metadata={{ title: pageTitle, description: pageDescription }}>
+  <div class="container mx-auto px-4 py-16">
+    <div class="max-w-3xl mx-auto text-center">
+      <h1 class="text-4xl font-bold mb-6">Ask a Nurse</h1>
+      
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 mb-8">
+        <div class="text-6xl mb-6">🚧</div>
+        <h2 class="text-2xl font-semibold mb-4">Service Coming Soon</h2>
+        <p class="text-gray-600 dark:text-gray-300 mb-6">
+          The "Ask a Nurse" feature is currently not available. We will announce this if and when we can make this work.
+        </p>
+        <p class="text-gray-500 dark:text-gray-400 text-sm">
+          Thank you for your understanding and patience.
+        </p>
+      </div>
+
+      <div class="mt-8">
+        <a 
+          href={getPermalink('/services')} 
+          class="inline-flex items-center text-primary-600 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300"
+        >
+          ← Back to Services
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  /* Add any custom styles here if needed */
+</style>

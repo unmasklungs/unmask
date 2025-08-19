@@ -21,7 +21,20 @@ export const headerData = {
     },
     {
       text: 'Services',
-      href: getPermalink('/services'),
+      items: [
+        {
+          text: 'List of Services',
+          href: getPermalink('/services'),
+        },
+        {
+          text: 'Interactive Navigator.',
+          href: getPermalink('/interactive'),
+        },
+        {
+          text: 'Ask a nurse',
+          href: getPermalink('/ask-a-nurse'),
+        },
+      ],
     },
     {
       text: 'Patient Journey',

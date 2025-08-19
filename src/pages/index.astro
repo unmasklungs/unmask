@@ -33,6 +33,47 @@ const metadata = {
     </Fragment>
   </Hero>
 
+  <!-- Update Message Section *********** -->
+  <div class="bg-gray-50 dark:bg-gray-900 py-16 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto text-center">
+      <div class="prose prose-lg dark:prose-invert max-w-none">
+        <p class="text-lg text-gray-600 dark:text-gray-300 mb-8">
+          This new website from Unmasking the Reality of Lung Cancer is a work in progress and continually evolving for you.
+          <a href="/contact" class="text-accent hover:text-accent-dark dark:text-accent-light dark:hover:text-accent transition-colors font-medium">
+            Send us your name and email in the contact area
+          </a> to be added to our update list.
+        </p>
+      </div>
+      
+      <!-- Additional Useful Information -->
+      <div class="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+          <div class="text-accent dark:text-accent-light text-4xl mb-4">
+            <i class="fas fa-book-medical"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Educational Resources</h3>
+          <p class="text-gray-600 dark:text-gray-300">Access our library of lung cancer information, treatment options, and research updates.</p>
+        </div>
+        
+        <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+          <div class="text-accent dark:text-accent-light text-4xl mb-4">
+            <i class="fas fa-hands-helping"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Support Network</h3>
+          <p class="text-gray-600 dark:text-gray-300">Connect with others on a similar journey through our community support programs.</p>
+        </div>
+        
+        <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+          <div class="text-accent dark:text-accent-light text-4xl mb-4">
+            <i class="fas fa-bullhorn"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Advocacy</h3>
+          <p class="text-gray-600 dark:text-gray-300">Join our efforts to raise awareness and advocate for better lung cancer care and research.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- CallToAction Widget *********** -->
 
   <CallToAction
@@ -40,8 +81,7 @@ const metadata = {
       {
         variant: 'primary',
         text: 'Donate',
-        href: 'https://www.paypal.com/donate/?hosted_button_id=YOUR_PAYPAL_BUTTON_ID',
-        target: '_blank',
+        href: '/donate',
         icon: 'tabler:heart',
       },
     ]}

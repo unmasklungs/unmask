@@ -14,7 +14,7 @@ export const headerData = {
           href: getPermalink('/founder'),
         },
         {
-          text: 'Contact',
+          text: 'Contact Us',
           href: getPermalink('/contact'),
         },
       ],
@@ -41,14 +41,14 @@ export const headerData = {
       href: getPermalink('/stories'),
     },
     {
-      text: 'Knowledge base',
+      text: 'Knowledge Base',
       items: [
         {
           text: 'Patient & Caregiver Hub',
           href: getPermalink('/information/patients-caregiver-hub'),
         },
         {
-          text: 'Professional',
+          text: 'Professional Knowledge',
           href: getPermalink('/information/professional'),
         },
       ],

@@ -122,6 +122,7 @@ export const footerData = {
     { ariaLabel: 'Facebook', icon: 'tabler:brand-facebook', href: 'https://www.facebook.com/UnmaskingC/' },
     { ariaLabel: 'Linkedin', icon: 'tabler:brand-linkedin', href: 'https://www.linkedin.com/company/unmasking-the-reality-of-lung-cancer/?originalSubdomain=ca' },
     { ariaLabel: 'RSS', icon: 'tabler:rss', href: getAsset('/rss.xml') },
+    { ariaLabel: 'Youtube', icon: 'tabler:brand-youtube', href: 'https://www.youtube.com/@unmaskingtherealityoflungcance' },
     { ariaLabel: 'Github', icon: 'tabler:brand-github', href: 'https://github.com/Uwater1/unmask' },
   ],
   footNote: ``,

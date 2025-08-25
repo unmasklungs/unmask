@@ -28,13 +28,13 @@ const posts = allPosts
   )
   .map(post => {
     // Extract slug from the post ID
-    const slug = typeof post.id === 'string' ? post.id.split('/').pop() || '' : '';
+    const slug = typeof post.id === 'string' ? post.id.split('/').pop()?.replace(/\.mdx?$/, '') || '' : '';
     
     // Create a Post object that matches the expected type
     const postData: Post = {
       id: post.id,
       slug: slug,
-      permalink: `/stories/${slug}`,
+      permalink: `stories/${slug}`,
       publishDate: new Date(post.data.publishDate),
       title: post.data.title || 'Untitled',
       excerpt: post.data.excerpt || '',

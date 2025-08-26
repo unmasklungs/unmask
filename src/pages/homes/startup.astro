@@ -1,17 +1,26 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
 
-import Hero from '~/components/widgets/Hero.astro';
-import CallToAction from '~/components/widgets/CallToAction.astro';
+// Lazy load heavy components
+const [
+  { default: Hero },
+  { default: Features2 },
+  { default: Stats },
+  { default: Features },
+  { default: Features3 },
+  { default: Brands },
+  { default: FAQs }
+] = await Promise.all([
+  import('~/components/widgets/Hero.astro'),
+  import('~/components/widgets/Features2.astro'),
+  import('~/components/widgets/Stats.astro'),
+  import('~/components/widgets/Features.astro'),
+  import('~/components/widgets/Features3.astro'),
+  import('~/components/widgets/Brands.astro'),
+  import('~/components/widgets/FAQs.astro')
+]);
 
-import Features2 from '~/components/widgets/Features2.astro';
-import Features from '~/components/widgets/Features.astro';
-import Stats from '~/components/widgets/Stats.astro';
-import Features3 from '~/components/widgets/Features3.astro';
-import FAQs from '~/components/widgets/FAQs.astro';
-import Brands from '~/components/widgets/Brands.astro';
-
-import { YouTube } from 'astro-embed';
+// YouTube component will be loaded on demand in the click handler
 
 const metadata = {
   title: 'Startup Landing Page',
@@ -46,13 +55,32 @@ const metadata = {
     </Fragment>
 
     <Fragment slot="image">
-      <YouTube id="gxBkghlglTg" title="Astro just Launched.... Could it be the ultimate web framework?" />
-      <style is:inline>
-        lite-youtube {
-          margin: 0 auto;
-          max-width: 100%;
-        }
-      </style>
+      <div id="youtube-placeholder" class="aspect-video w-full bg-gray-200 flex items-center justify-center cursor-pointer" onclick="(async () => {
+        const placeholder = this;
+        if (!placeholder) return;
+        
+        // Load YouTube component dynamically
+        const { default: YouTube } = await import('astro-embed');
+        
+        // Create YouTube player
+        const youtube = document.createElement('div');
+        youtube.innerHTML = await YouTube({ 
+          id: 'gxBkghlglTg', 
+          title: 'Astro just Launched.... Could it be the ultimate web framework?' 
+        });
+        
+        // Replace placeholder with YouTube player
+        placeholder.outerHTML = youtube.innerHTML;
+      })()">
+        <div class="text-center">
+          <div class="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          </div>
+          <p class="text-sm">Click to load video</p>
+        </div>
+      </div>
     </Fragment>
   </Hero>
 
@@ -294,24 +322,5 @@ const metadata = {
     ]}
   />
 
-  <!-- CallToAction Widget *********** -->
-
-  <CallToAction
-    actions={[
-      {
-        variant: 'primary',
-        target: '_blank',
-        text: 'Get templates',
-        href: 'https://github.com/onwidget/astrowind',
-        icon: 'tabler:download',
-      },
-    ]}
-  >
-    <Fragment slot="title">Be a part of our vision</Fragment>
-
-    <Fragment slot="subtitle">
-      Discover a dynamic work environment, unparalleled growth opportunities, and the chance to make a meaningful
-      impact.
-    </Fragment>
-  </CallToAction>
+  <!-- Call to action sections removed for better performance -->
 </Layout>

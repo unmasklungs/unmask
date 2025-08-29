@@ -49,6 +49,26 @@ Now, your website is ready to be deployed. All generated files are located at
 `dist` folder, which you can deploy the folder to any hosting service you
 prefer.
 
+## Website Structure
+
+Here is a simplified overview of the project's structure, focusing on the most relevant files and directories for development:
+
+```
+/
+├── astro.config.ts         # Astro configuration file.
+├── package.json            # Project dependencies and scripts.
+├── tailwind.config.js      # Tailwind CSS configuration.
+├── public/                 # Static assets (images, fonts, robots.txt).
+└── src/
+    ├── assets/             # Project assets (styles, images, favicons).
+    ├── components/         # Reusable Astro components (.astro).
+    ├── content/            # Content collections (blog posts, info pages).
+    ├── layouts/            # Defines the structure of pages.
+    ├── pages/              # Website pages and API endpoints. Routing is based on this.
+    ├── utils/              # Utility functions for the project.
+    └── navigation.ts       # IMPORTANT: Defines the primary navigation links for the site header and footer.
+```
+
 ## Acknowledgements
 
 Diane Colton is the Founder of Unmasking the Reality of Lung Cancer. 

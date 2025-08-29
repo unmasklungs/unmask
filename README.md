@@ -58,15 +58,27 @@ Here is a simplified overview of the project's structure, focusing on the most r
 ├── astro.config.ts         # Astro configuration file.
 ├── package.json            # Project dependencies and scripts.
 ├── tailwind.config.js      # Tailwind CSS configuration.
+├── old/                    # Put post-migrated and previous files here.
 ├── public/                 # Static assets (images, fonts, robots.txt).
 └── src/
     ├── assets/             # Project assets (styles, images, favicons).
+        └── images/         # Project images.(logo, etc.)
     ├── components/         # Reusable Astro components (.astro).
     ├── content/            # Content collections (blog posts, info pages).
-    ├── layouts/            # Defines the structure of pages.
-    ├── pages/              # Website pages and API endpoints. Routing is based on this.
-    ├── utils/              # Utility functions for the project.
-    └── navigation.ts       # IMPORTANT: Defines the primary navigation links for the site header and footer.
+    │   ├── post/
+    │   │   └── stories/    # For patient stories
+    │   └── info/
+    │       ├── public/       # For public information
+    │       └── professionals/ # For professionals information
+    ├── layouts/              # Defines the structure of pages.
+    ├── pages/                # Website pages and API endpoints. 
+    │   ├── index.astro       # The homepage.
+    │   ├── about.astro       # The about page.
+    │   ├── ask-a-nurse.astro # The ask a nurse page. (Under development)
+    │   ├── contact.astro     # The contact page.
+    │   └── maps.astro        # The page for the interactive map.
+    ├── utils/                # Utility functions for the project.
+    └── navigation.ts         # IMPORTANT: Defines the primary navigation links for the site header and footer.
 ```
 
 ## Acknowledgements

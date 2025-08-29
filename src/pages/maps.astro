@@ -7,12 +7,6 @@ const metadata = {
   description: 'Interactive map of Canadian electoral districts',
 };
 
-// Sample data for demonstration
-const locations = [
-  { id: 1, name: 'Vancouver General Hospital', lat: 49.2628, lng: -123.1212, radonLevel: 'Low' },
-  { id: 2, name: 'BC Cancer Agency', lat: 49.2644, lng: -123.1193, radonLevel: 'Medium' },
-  { id: 3, name: 'St. Paul\'s Hospital', lat: 49.2806, lng: -123.1290, radonLevel: 'High' },
-];
 ---
 
 <PageLayout metadata={metadata}>
@@ -27,34 +21,24 @@ const locations = [
       <CanadaMap width={800} height={600} client:load />
     </div>
     
-    <div class="grid grid-cols-1 gap-8">
+    <div class="grid grid-cols-1 gap-8">   
       <div class="bg-white p-6 rounded-lg shadow">
-        <h2 class="text-xl font-semibold mb-4">Legend</h2>
-        <div class="space-y-2">
-          <div class="flex items-center">
-            <div class="w-4 h-4 bg-green-500 rounded-full mr-2"></div>
-            <span>Low Pollution Levels</span>
-          </div>
-          <div class="flex items-center">
-            <div class="w-4 h-4 bg-yellow-500 rounded-full mr-2"></div>
-            <span>Medium Pollution Levels</span>
-          </div>
-          <div class="flex items-center">
-            <div class="w-4 h-4 bg-red-500 rounded-full mr-2"></div>
-            <span>High Pollution Levels</span>
-          </div>
-        </div>
-      </div>
-      
-      <div class="bg-white p-6 rounded-lg shadow">
-        <h2 class="text-xl font-semibold mb-4">Locations</h2>
-        <div class="space-y-3">
-          {locations.map(location => (
-            <div class="p-3 border rounded hover:bg-gray-50 cursor-pointer">
-              <div class="font-medium">{location.name}</div>
-              <div class="text-sm text-gray-500">Radon Level: {location.radonLevel}</div>
-            </div>
-          ))}
+        <h2 class="text-xl font-semibold mb-4">External Lung Cancer Screening Resources</h2>
+        <div class="space-y-4">
+          <a 
+            href="https://www.lungcancerpolicynetwork.com/interactive-map-of-lung-cancer-screening/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="text-blue-600 hover:text-blue-800 hover:underline flex items-center"
+          >
+            <span>Interactive Map of Lung Cancer Screening</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
+          <p class="text-gray-600">
+            This map is designed to be a regularly updated resource that showcases relevant ongoing and recently completed clinical trials, implementation studies, and national or regional organised low-dose computed tomography (LDCT) screening programmes around the world.
+          </p>
         </div>
       </div>
     </div>
@@ -68,7 +52,7 @@ const locations = [
         </div>
         <div class="ml-3">
           <p class="text-sm text-blue-700">
-            This is a demonstration of how the maps section could look. In a production environment, this would be integrated with a mapping service like Google Maps or Mapbox.
+            This page is under development.
           </p>
         </div>
       </div>
